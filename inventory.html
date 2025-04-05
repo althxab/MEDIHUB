@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MEDIHUB - Inventory</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom right, #e0f0ff, #ffffff);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header, footer {
+      background-color: #014b80;
+      color: white;
+      padding: 15px 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    h2 {
+      text-align: center;
+      color: #014b80;
+    }
+    h3 {
+      color: #014b80;
+      margin-top: 0;
+    }
+    .curve-box {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    .resource-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .resource-item select, .resource-item input[type="text"] {
+      margin: 0 10px;
+    }
+    .add-resource {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .donate-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    .request-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+    .add-btn {
+      background-color: #007bff;
+      color: white;
+    }
+    footer {
+      margin-top: auto;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="Copy_of_Medica_5.png" alt="Logo" style="height: 40px; margin-right: 15px;">
+      <h1>MEDIHUB</h1>
+    </div>
+    <nav>
+      <a href="MEDIHUB.html" target="_blank">Home</a>
+      <a href="profile.html" target="_blank">Settings</a>
+      <a href="inventory.html" target="_blank">Inventory</a>
+    </nav>
+  </header>
+  <div class="container">
+    <h2>Inventory</h2>
+
+    <div class="curve-box">
+      <h3>Resources</h3>
+      <div class="resource-item">
+        <span>Syringe</span><span>HAVE</span><button class="donate-btn">Donate</button>
+      </div>
+      <div class="resource-item">
+        <span>Stethoscope</span><span>NEED</span><button class="request-btn">Request</button>
+      </div>
+      <div class="resource-item">
+        <span>Facemasks</span><span>HAVE</span><button class="donate-btn">Donate</button>
+      </div>
+      <div class="resource-item">
+        <span>Alcohol</span><span>NEED</span><button class="request-btn">Request</button>
+      </div>
+      <div class="resource-item">
+        <span>Tissue</span><span>HAVE</span><button class="donate-btn">Donate</button>
+      </div>
+
+      <div class="add-resource">
+        <input type="text" placeholder="Enter equipment name" id="newResource" />
+        <select id="needOrHave">
+          <option value="HAVE">HAVE</option>
+          <option value="NEED">NEED</option>
+        </select>
+        <button class="add-btn" onclick="addResource()">+</button>
+      </div>
+
+      <div id="resourceList"></div>
+    </div>
+
+    <div class="curve-box">
+      <h3>Tracking</h3>
+      <p id="trackingHistory">No current history of donation</p>
+    </div>
+
+    <div class="curve-box">
+      <h3>Analytics and Results</h3>
+      <p id="analyticsData">Not enough data</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>Contact us: MEDIHUB.html | (63+) 968-312-5044 | Email: bea.obana@gmail.com</p>
+  </footer>
+
+  <script>
+    function addResource() {
+      const resourceName = document.getElementById("newResource").value.trim();
+      const needOrHave = document.getElementById("needOrHave").value;
+      if (resourceName === "") return;
+
+      const container = document.createElement("div");
+      container.className = "resource-item";
+      container.innerHTML = `
+        <span>${resourceName}</span>
+        <span>${needOrHave}</span>
+        <button class="${needOrHave === 'HAVE' ? 'donate-btn' : 'request-btn'}">
+          ${needOrHave === 'HAVE' ? 'Donate' : 'Request'}
+        </button>
+      `;
+      document.getElementById("resourceList").appendChild(container);
+
+      document.getElementById("newResource").value = "";
+      document.getElementById("trackingHistory").innerText = "1 donation/request recorded this week.";
+      document.getElementById("analyticsData").innerText = "Summary: 1 donation/request made this week.";
+    }
+  </script>
+</body>
+</html>
